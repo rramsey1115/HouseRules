@@ -11,7 +11,6 @@ using HouseRules.Data;
 
 namespace HouseRules.Controllers;
 
-
 [ApiController]
 [Route("api/[controller]")]
 public class AuthController : ControllerBase

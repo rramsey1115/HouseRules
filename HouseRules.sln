@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRules", "HouseRules.csproj", "{B5863DCC-3BE8-4959-B5B8-406148E12620}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5863DCC-3BE8-4959-B5B8-406148E12620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5863DCC-3BE8-4959-B5B8-406148E12620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5863DCC-3BE8-4959-B5B8-406148E12620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5863DCC-3BE8-4959-B5B8-406148E12620}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9AEA48AA-835B-4B3A-9C9E-8BA36A22D2FF}
+	EndGlobalSection
+EndGlobal

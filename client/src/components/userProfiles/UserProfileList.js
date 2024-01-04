@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getUserProfiles } from "../../managers/profileManager";
 import { Spinner, Table } from "reactstrap";
 
-export const UserProfileList = () => {
+export const UserProfileList = ({ loggedInUser }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {getAndSetAllUsers()}, [])
@@ -30,9 +30,18 @@ export const UserProfileList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>num</td>
-                    </tr>
+                    {users.map(u => {
+                    let choreCount = u.choreAssignments.length;
+                    let completedCount = u.choreCompletions.length;
+                    return (<tr>
+                        <td>{u.id}</td>
+                        <td>{`${u.firstName} ${u.lastName}`}</td>
+                        <td>{u.email}</td>
+                        <td>{u.userName}</td>
+                        <td>{choreCount}</td>
+                        <td>{completedCount}</td>
+                    </tr>)}
+                    )}
                 </tbody>
             </Table>
         </div>

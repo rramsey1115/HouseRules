@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getUserProfiles } from "../../managers/profileManager";
-import { Spinner, Table } from "reactstrap";
+import { Button, Spinner, Table } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 export const UserProfileList = () => {
     const [users, setUsers] = useState([]);
@@ -11,7 +12,8 @@ export const UserProfileList = () => {
         getUserProfiles().then(setUsers);
     }
 
-    console.log(users);
+    const navigate = useNavigate();
+
     return !users.length ? <Spinner /> : 
     <div className="container">
         <div className="header">
@@ -27,6 +29,7 @@ export const UserProfileList = () => {
                         <th>Username</th>
                         <th>Chores</th>
                         <th>Completed</th>
+                        <th>Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +44,13 @@ export const UserProfileList = () => {
                             <td>{u.userName}</td>
                             <td>{choreCount}</td>
                             <td>{completedCount}</td>
+                            <td><Button 
+                                color="info" 
+                                value={u.id} 
+                                onClick={(e) => navigate(`${e.target.value}`)}
+                                >Details
+                                </Button>
+                            </td>
                         </tr>)}
                     )}
                 </tbody>

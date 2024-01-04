@@ -26,9 +26,36 @@ export const UserProfileDetails = () => {
                 <h1>User Profile Details</h1>
             </div>
             <div className="body">
-                <h4>{`${user.firstName} ${user.lastName}`}</h4>
-                <Table>
+                <Table style={{marginTop:20}}>
                     <tbody>
+                        <tr>
+                            <th><h4>Name</h4></th>
+                            <td><h5>{`${user.firstName} ${user.lastName}`}</h5></td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td></td>
+                        </tr>
                         <tr>
                             <th></th>
                             <td></td>

@@ -112,5 +112,65 @@ public class ChoreController : ControllerBase
         return Created($"api/chore/{c.Id}", c);
     }
 
+    [HttpPut("{id}")]
+    // [Authorize(Roles = "Admin")]
+    public IActionResult Update(int id, Chore c)
+    {
+        Chore foundC = _dbContext.Chores.SingleOrDefault(c => c.Id == id);
+        if (foundC == null)
+        {
+            return BadRequest("Id param does not match any chore id");
+        }
+        foundC.Name = c.Name;
+        foundC.Difficulty = c.Difficulty;
+        foundC.ChoreFrequencyDays = c.ChoreFrequencyDays;
+        _dbContext.SaveChanges();
+        return Created($"api/chore/{foundC.Id}", foundC);
+    }
+
+    [HttpDelete("{id}")]
+    // [Authorize(Roles = "Admin")]
+    public IActionResult Delete(int id)
+    {
+        Chore foundC = _dbContext.Chores.SingleOrDefault(c => c.Id == id);
+        if (foundC == null)
+        {
+            return BadRequest("Id param does not match any chore id");
+        }
+        _dbContext.Chores.Remove(foundC);
+        _dbContext.SaveChanges();
+        return NoContent();
+    }
+
+    [HttpPost("{id}/assign")]
+    // [Authorize(Roles = "Admin")]
+    public IActionResult Assign(int id, int userId)
+    {
+        var assignment = new ChoreAssignment
+        {
+            UserProfileId = userId,
+            ChoreId = id
+        };
+
+        _dbContext.ChoreAssignments.Add(assignment);
+        _dbContext.SaveChanges();
+        return NoContent();
+    }
+
+    [HttpPost("{id}/unassign")]
+    // [Authorize(Roles = "Admin")]
+    public IActionResult Unassign(int id, int userId)
+    {
+        var found = _dbContext.ChoreAssignments
+        .Where(ca => ca.ChoreId == id && ca.UserProfileId == userId);
+
+        foreach(var f in found)
+        {
+            _dbContext.ChoreAssignments.Remove(f);
+        }
+        
+        _dbContext.SaveChanges();
+        return NoContent();
+    }
 
 }

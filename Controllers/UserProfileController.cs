@@ -26,6 +26,8 @@ public class UserProfileController : ControllerBase
         return Ok(_dbContext
             .UserProfiles
             .Include(up => up.IdentityUser)
+            .Include(up => up.ChoreAssignments).ThenInclude(ca => ca.Chore)
+            .Include(up => up.ChoreCompletions).ThenInclude(cc => cc.Chore)
             .Select(up => new UserProfileDTO
             {
                 Id = up.Id,
@@ -34,7 +36,33 @@ public class UserProfileController : ControllerBase
                 Address = up.Address,
                 IdentityUserId = up.IdentityUserId,
                 Email = up.IdentityUser.Email,
-                UserName = up.IdentityUser.UserName
+                UserName = up.IdentityUser.UserName,
+                ChoreAssignments = up.ChoreAssignments.Select(ca => new ChoreAssignmentDTO
+                {
+                    Id = ca.Id,
+                    UserProfileId = ca.UserProfileId,
+                    ChoreId = ca.ChoreId,
+                    Chore = new ChoreDTO
+                    {
+                        Id = ca.Chore.Id,
+                        Name = ca.Chore.Name,
+                        Difficulty = ca.Chore.Difficulty,
+                        ChoreFrequencyDays = ca.Chore.ChoreFrequencyDays
+                    }
+                }).ToList(),
+                ChoreCompletions = up.ChoreCompletions.Select(cp => new ChoreCompletionDTO
+                {
+                    Id = cp.Id,
+                    UserProfileId = cp.UserProfileId,
+                    ChoreId = cp.ChoreId,
+                    Chore = new ChoreDTO
+                    {
+                        Id = cp.Chore.Id,
+                        Name = cp.Chore.Name,
+                        Difficulty = cp.Chore.Difficulty,
+                        ChoreFrequencyDays = cp.Chore.ChoreFrequencyDays
+                    }
+                }).ToList()
             })
         .ToList());
     }

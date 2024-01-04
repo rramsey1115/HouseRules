@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { getUserProfileById } from "../../managers/profileManager";
-import { Table } from "reactstrap";
+import { Spinner, Table } from "reactstrap";
 
 export const UserProfileDetails = () => {
     const id = useParams().id;
@@ -20,7 +20,7 @@ export const UserProfileDetails = () => {
 
     console.log('user', user);
     
-    return (
+    return !user ? <Spinner /> :
         <div className="container">
             <div className="header">
                 <h1>User Profile Details</h1>
@@ -34,23 +34,34 @@ export const UserProfileDetails = () => {
                         </tr>
                         <tr>
                             <th>Email</th>
-                            <td></td>
+                            <td>{user.email}</td>
                         </tr>
                         <tr>
-                            <th></th>
-                            <td></td>
+                            <th>Address</th>
+                            <td>{user.address}</td>
                         </tr>
                         <tr>
-                            <th></th>
-                            <td></td>
+                            <th>Username</th>
+                            <td>{user.userName}</td>
                         </tr>
                         <tr>
-                            <th></th>
-                            <td></td>
+                            <th>Chore Assignments</th>
+                            <td>
+                                {user.choreAssignments?.map(ca => {
+                                    return ca.chore.dateCompleted 
+                                        ? null 
+                                        : <p key={ca.chore.id}>{ca.chore.name}</p>
+                                    })
+                                }
+                            </td>
                         </tr>
                         <tr>
-                            <th></th>
-                            <td></td>
+                            <th>Completed Chores</th>
+                            <td>
+                                {user.choreCompletions?.map(cp => {
+                                    return <p key={cp.id}>{cp.chore.name} - {cp.completedOn}</p>
+                                })}
+                            </td>
                         </tr>
                         <tr>
                             <th></th>
@@ -63,5 +74,5 @@ export const UserProfileDetails = () => {
                     </tbody>
                 </Table>
             </div>
-        </div>)
+        </div>
 }

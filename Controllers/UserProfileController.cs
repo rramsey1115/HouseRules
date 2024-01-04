@@ -55,6 +55,7 @@ public class UserProfileController : ControllerBase
                     Id = cp.Id,
                     UserProfileId = cp.UserProfileId,
                     ChoreId = cp.ChoreId,
+                    CompletedOn = cp.CompletedOn,
                     Chore = new ChoreDTO
                     {
                         Id = cp.Chore.Id,
@@ -133,6 +134,7 @@ public class UserProfileController : ControllerBase
                 Id = cp.Id,
                 UserProfileId = cp.UserProfileId,
                 ChoreId = cp.ChoreId,
+                CompletedOn = cp.CompletedOn,
                 Chore = new ChoreDTO
                 {
                     Id = cp.Chore.Id,

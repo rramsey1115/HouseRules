@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getUserProfiles } from "../../managers/profileManager";
 import { Spinner, Table } from "reactstrap";
 
-export const UserProfileList = ({ loggedInUser }) => {
+export const UserProfileList = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {getAndSetAllUsers()}, [])

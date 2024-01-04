@@ -7,17 +7,18 @@ export const UserProfileDetails = () => {
     const [user, setUser] = useState({});
 
     useEffect(() => {
-        if(id)
+        if (id)
         {
-            getAndSetUser(id);
+            getAndSetUser(id * 1);
         }
     },[id])
     
-    const getAndSetUser = () => {
-        getUserProfileById(id).then(setUser)
+    const getAndSetUser = (userId) => {
+        getUserProfileById(userId).then(data => setUser(data))
     }
 
     console.log('user', user);
+    console.log('id', id);
     
     return (
         <div className="container">
@@ -25,7 +26,8 @@ export const UserProfileDetails = () => {
                 <h1>User Profile Details</h1>
             </div>
             <div className="body">
-                <h4>Details... Details... Details... Details...</h4>
+                <h4>{`${user.firstName} ${user.lastName}`}</h4>
+                <h5>{user.email}</h5>
             </div>
         </div>)
 }

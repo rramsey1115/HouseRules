@@ -90,54 +90,60 @@ public class UserProfileController : ControllerBase
         }));
     }
 
-    [HttpPost("promote/{id}")]
-    [Authorize(Roles = "Admin")]
-    public IActionResult Promote(string id)
-    {
-        IdentityRole role = _dbContext.Roles.SingleOrDefault(r => r.Name == "Admin");
-        // This will create a new row in the many-to-many UserRoles table.
-        _dbContext.UserRoles.Add(new IdentityUserRole<string>
-        {
-            RoleId = role.Id,
-            UserId = id
-        });
-        _dbContext.SaveChanges();
-        return NoContent();
-    }
-
-    [HttpPost("demote/{id}")]
-    [Authorize(Roles = "Admin")]
-    public IActionResult Demote(string id)
-    {
-        IdentityRole role = _dbContext.Roles
-            .SingleOrDefault(r => r.Name == "Admin"); 
-        IdentityUserRole<string> userRole = _dbContext
-            .UserRoles
-            .SingleOrDefault(ur =>
-                ur.RoleId == role.Id &&
-                ur.UserId == id);
-
-        _dbContext.UserRoles.Remove(userRole);
-        _dbContext.SaveChanges();
-        return NoContent();
-    }
-
     [HttpGet("{id}")]
     [Authorize]
     public IActionResult GetById(int id)
     {
-        UserProfile userProfile = _dbContext
+        var up = _dbContext
         .UserProfiles
+        .Include(up => up.IdentityUser)
         .Include(up => up.ChoreAssignments).ThenInclude(ca => ca.Chore)
         .Include(up => up.ChoreCompletions).ThenInclude(cp => cp.Chore)
         .SingleOrDefault(up => up.Id == id);
 
-        if (userProfile == null)
+        if (up == null)
         {
-            return NotFound();
+            return NotFound("Id doesn't exist on a userProfile");
         }
 
-        return Ok(userProfile);
+        return Ok(new UserProfileDTO
+        {
+            Id = up.Id,
+            FirstName = up.FirstName,
+            LastName = up.LastName,
+            Address = up.Address,
+            IdentityUserId = up.IdentityUserId,
+            Email = up.IdentityUser.Email,
+            UserName = up.IdentityUser.UserName,
+            ChoreAssignments = up.ChoreAssignments.Select(ca => new ChoreAssignmentDTO
+            {
+                Id = ca.Id,
+                UserProfileId = ca.UserProfileId,
+                ChoreId = ca.ChoreId,
+                Chore = new ChoreDTO
+                {
+                    Id = ca.Chore.Id,
+                    Name = ca.Chore.Name,
+                    Difficulty = ca.Chore.Difficulty,
+                    ChoreFrequencyDays = ca.Chore.ChoreFrequencyDays
+                }
+            }).ToList(),
+            ChoreCompletions = up.ChoreCompletions.Select(cp => new ChoreCompletionDTO
+            {
+                Id = cp.Id,
+                UserProfileId = cp.UserProfileId,
+                ChoreId = cp.ChoreId,
+                Chore = new ChoreDTO
+                {
+                    Id = cp.Chore.Id,
+                    Name = cp.Chore.Name,
+                    Difficulty = cp.Chore.Difficulty,
+                    ChoreFrequencyDays = cp.Chore.ChoreFrequencyDays
+                }
+            }).ToList()
+        }
+
+        );
     }
 
 }

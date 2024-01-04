@@ -31,16 +31,17 @@ export const UserProfileList = ({ loggedInUser }) => {
                 </thead>
                 <tbody>
                     {users.map(u => {
-                    let choreCount = u.choreAssignments.length;
-                    let completedCount = u.choreCompletions.length;
-                    return (<tr key={`userId ${u.id}`}>
-                        <td>{u.id}</td>
-                        <td>{`${u.firstName} ${u.lastName}`}</td>
-                        <td>{u.email}</td>
-                        <td>{u.userName}</td>
-                        <td>{choreCount}</td>
-                        <td>{completedCount}</td>
-                    </tr>)}
+                        let choreCount = u.choreAssignments.length;
+                        let completedCount = u.choreCompletions.length;
+                        return (
+                        <tr key={`userId ${u.id}`}>
+                            <td>{u.id}</td>
+                            <td>{`${u.firstName} ${u.lastName}`}</td>
+                            <td>{u.email}</td>
+                            <td>{u.userName}</td>
+                            <td>{choreCount}</td>
+                            <td>{completedCount}</td>
+                        </tr>)}
                     )}
                 </tbody>
             </Table>

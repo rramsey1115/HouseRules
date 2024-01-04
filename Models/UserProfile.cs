@@ -15,7 +15,6 @@ public class UserProfile
     [Required]
     public string Address { get; set; }
     [Required]
-    public string Email { get; set; }
     public string IdentityUserId { get; set; }
     public IdentityUser IdentityUser { get; set; }
 }

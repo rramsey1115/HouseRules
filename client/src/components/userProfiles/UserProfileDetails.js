@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { getUserProfileById } from "../../managers/profileManager";
+import { Table } from "reactstrap";
 
 export const UserProfileDetails = () => {
     const id = useParams().id;
@@ -18,7 +19,6 @@ export const UserProfileDetails = () => {
     }
 
     console.log('user', user);
-    console.log('id', id);
     
     return (
         <div className="container">
@@ -27,7 +27,14 @@ export const UserProfileDetails = () => {
             </div>
             <div className="body">
                 <h4>{`${user.firstName} ${user.lastName}`}</h4>
-                <h5>{user.email}</h5>
+                <Table>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </Table>
             </div>
         </div>)
 }

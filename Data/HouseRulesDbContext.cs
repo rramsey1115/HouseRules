@@ -38,14 +38,38 @@ public class HouseRulesDbContext : IdentityDbContext<IdentityUser>
             RoleId = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
             UserId = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f"
         });
+
         modelBuilder.Entity<UserProfile>().HasData(new UserProfile
         {
             Id = 1,
             IdentityUserId = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
             FirstName = "Admina",
             LastName = "Strator",
-            Address = "101 Main Street",
+            Address = "101 Main Street"
         });
+
+        modelBuilder.Entity<Chore>().HasData(
+            new Chore
+            {
+                Id = 1,
+                Name = "Take Out Trash",
+                Difficulty = 2,
+                ChoreFrequencyDays = 4
+            },
+            new Chore
+            {
+                Id = 2,
+                Name = "Vacuum",
+                Difficulty = 4,
+                ChoreFrequencyDays = 5
+            },
+            new Chore
+            {
+                Id = 3,
+                Name = "Scrub Bathtub",
+                
+            }
+            );
 
     }
 }

@@ -53,23 +53,64 @@ public class HouseRulesDbContext : IdentityDbContext<IdentityUser>
             {
                 Id = 1,
                 Name = "Take Out Trash",
-                Difficulty = 2,
+                Difficulty = 1,
                 ChoreFrequencyDays = 4
             },
             new Chore
             {
                 Id = 2,
                 Name = "Vacuum",
-                Difficulty = 4,
+                Difficulty = 2,
                 ChoreFrequencyDays = 5
             },
             new Chore
             {
                 Id = 3,
                 Name = "Scrub Bathtub",
-                
+                Difficulty = 4,
+                ChoreFrequencyDays = 14
+            },
+            new Chore
+            {
+                Id = 4,
+                Name = "Mow the Lawn",
+                Difficulty = 5,
+                ChoreFrequencyDays = 14
+            },
+            new Chore 
+            {
+                Id = 5,
+                Name = "Mop Kitchen Floors",
+                Difficulty = 3,
+                ChoreFrequencyDays = 7
             }
-            );
+        );
+
+        modelBuilder.Entity<ChoreAssignment>().HasData(
+            new ChoreAssignment
+            {
+                Id = 1,
+                UserProfileId = 1,
+                ChoreId = 3
+            },
+            new ChoreAssignment
+            {
+                Id = 2,
+                UserProfileId = 1,
+                ChoreId = 1
+            }
+        );
+
+        modelBuilder.Entity<ChoreCompletion>().HasData(
+            new ChoreCompletion
+            {
+                Id = 1,
+                UserProfileId = 1,
+                ChoreId = 1,
+                CompletedOn = new DateTime(2023-01-03)
+            }
+
+        );
 
     }
 }

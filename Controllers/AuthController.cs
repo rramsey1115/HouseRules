@@ -131,6 +131,7 @@ public class AuthController : ControllerBase
             .GetEncoding("iso-8859-1")
             .GetString(Convert.FromBase64String(registration.Password));
 
+
         var result = await _userManager.CreateAsync(user, password);
         if (result.Succeeded)
         {

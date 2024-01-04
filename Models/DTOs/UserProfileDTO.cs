@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations.Schema;
+
 using Microsoft.AspNetCore.Identity;
 
 namespace HouseRules.Models.DTOs;
@@ -14,4 +14,6 @@ public class UserProfileDTO
     public List<string> Roles { get; set; }
     public string IdentityUserId { get; set; }
     public IdentityUser IdentityUser { get; set; }
+    public List<ChoreAssignmentDTO> ChoreAssignments { get; set;}
+    public List<ChoreCompletionDTO> ChoreCompletions { get; set; }
 }

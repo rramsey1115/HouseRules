@@ -93,4 +93,23 @@ public class UserProfileController : ControllerBase
         _dbContext.SaveChanges();
         return NoContent();
     }
+
+    [HttpGet("{id}")]
+    [Authorize]
+    public IActionResult GetById(int id)
+    {
+        UserProfile userProfile = _dbContext
+        .UserProfiles
+        .Include(up => up.ChoreAssignments).ThenInclude(ca => ca.Chore)
+        .Include(up => up.ChoreCompletions).ThenInclude(cp => cp.Chore)
+        .SingleOrDefault(up => up.Id == id);
+
+        if (userProfile == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(userProfile);
+    }
+
 }

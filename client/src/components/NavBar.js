@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink as RRNavLink } from "react-router-dom";
+import { NavLink as RRNavLink, useNavigate } from "react-router-dom";
 import {
 Button,
 Collapse,
@@ -15,6 +15,8 @@ import { logout } from "../managers/authManager";
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
 const [open, setOpen] = useState(false);
 
+const navigate = useNavigate();
+
 const toggleNavbar = () => setOpen(!open);
 
 return (
@@ -27,18 +29,24 @@ return (
         <>
             <NavbarToggler onClick={toggleNavbar} />
             <Collapse isOpen={open} navbar>
-            <Nav navbar></Nav>
+                <Nav navbar>
+                    <NavItem onClick={() => setOpen(false)}>
+                        <NavLink tag={RRNavLink} to="/userprofiles">
+                            User Profiles
+                        </NavLink>
+                    </NavItem>
+                </Nav>
             </Collapse>
             <Button
-            color="primary"
-            onClick={(e) => {
-                e.preventDefault();
-                setOpen(false);
-                logout().then(() => {
-                setLoggedInUser(null);
-                setOpen(false);
-                });
-            }}
+                color="primary"
+                onClick={(e) => {
+                    e.preventDefault();
+                    setOpen(false);
+                    logout().then(() => {
+                    setLoggedInUser(null);
+                    setOpen(false);
+                    });
+                }}
             >
             Logout
             </Button>

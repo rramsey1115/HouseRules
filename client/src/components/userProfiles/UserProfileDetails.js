@@ -18,6 +18,17 @@ export const UserProfileDetails = () => {
         getUserProfileById(userId).then(data => setUser(data))
     }
 
+    const getFormattedDate = (dateString) => {
+        const date = new Date(dateString); // {object Date}
+        const yyyy = date.getFullYear();
+        let mm = date.getMonth() + 1;
+        let dd = date.getDate();
+        if (dd < 10) dd = "0" + dd;
+        if (mm < 10) mm = "0" + mm;
+        const formatted = mm + "-" + dd + "-" + yyyy;
+        return formatted;
+      };
+
     console.log('user', user);
     
     return !user ? <Spinner /> :
@@ -59,7 +70,7 @@ export const UserProfileDetails = () => {
                             <th>Completed Chores</th>
                             <td>
                                 {user.choreCompletions?.map(cp => {
-                                    return <p key={cp.id}>{cp.chore.name} - {cp.completedOn}</p>
+                                    return <p key={cp.id}>{cp.chore.name} {getFormattedDate(cp.completedOn)}</p>
                                 })}
                             </td>
                         </tr>

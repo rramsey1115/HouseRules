@@ -110,9 +110,8 @@ public class HouseRulesDbContext : IdentityDbContext<IdentityUser>
                 Id = 1,
                 UserProfileId = 1,
                 ChoreId = 1,
-                CompletedOn = new DateTime(2023-01-03)
+                CompletedOn = new DateTime(2023, 01, 03)
             }
-
         );
 
     }

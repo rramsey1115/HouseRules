@@ -1,7 +1,7 @@
 
 using HouseRules.Models.DTOs;
 
-public class ChoreAssignment
+public class ChoreAssignmentDTO
 {
     public int Id { get; set; }
     public int UserProfileId { get; set; }

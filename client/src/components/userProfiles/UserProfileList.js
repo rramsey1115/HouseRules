@@ -33,7 +33,7 @@ export const UserProfileList = ({ loggedInUser }) => {
                     {users.map(u => {
                     let choreCount = u.choreAssignments.length;
                     let completedCount = u.choreCompletions.length;
-                    return (<tr>
+                    return (<tr key={`userId ${u.id}`}>
                         <td>{u.id}</td>
                         <td>{`${u.firstName} ${u.lastName}`}</td>
                         <td>{u.email}</td>

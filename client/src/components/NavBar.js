@@ -21,7 +21,7 @@ const toggleNavbar = () => setOpen(!open);
 
 return (
     <div>
-    <Navbar color="light" light fixed="true" expand="lg">
+    <Navbar color="light" light fixed="true" expand="sm">
         <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
         🧹🧼House Rules
         </NavbarBrand>

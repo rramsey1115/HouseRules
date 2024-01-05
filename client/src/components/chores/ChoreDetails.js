@@ -2,21 +2,27 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { getChoreById } from "../../managers/choreManager";
 import { Spinner, Table } from "reactstrap";
+import { getUserProfiles } from "../../managers/profileManager";
 
 export const ChoreDetails = () => {
     const id = useParams().id;
     const [chore, setChore] = useState();
+    const [allUsers, setAllUsers] = useState([]);
 
     useEffect(() => {
         if(parseInt(id))
         {
-            getAndSetChoreById(id)
+            getAndSetChoreById(id);
+            getAndSetAllUsers();
         }
     }, [id]);
-    let recent = null;
 
     const getAndSetChoreById = (id) => {
         getChoreById(id).then(setChore);
+    }
+
+    const getAndSetAllUsers = () => {
+        getUserProfiles().then(setAllUsers);
     }
 
     const getFormattedDate = (dateString) => {
@@ -30,16 +36,19 @@ export const ChoreDetails = () => {
         return formatted;
     };
 
-    console.log('chore', chore);
+    const handleChange = (id) => {
 
-    return !chore ? <Spinner /> :
-    <div className="container">
+    }
+
+    return !chore || allUsers.length < 1 
+    ? <Spinner /> 
+    : <div className="container">
         <div className="header" style={{borderBottom:"1px solid"}}>
             <h1>Chore Details</h1>
         </div>
         <div className="body">
             <Table>
-                <thead>
+                <tbody>
                     <tr>
                         <th>Name</th>
                         <td>{chore.name}</td>
@@ -50,12 +59,17 @@ export const ChoreDetails = () => {
                     </tr>
                     <tr>
                         <th>Assignments</th>
-                        <td><div>
-                            {chore.choreAssignments?.map(ca => {
+                        <td>
+                            {allUsers.map(u => {
                             return (
-                                <p key={ca.id}>{`${ca.userProfile.firstName} ${ca.userProfile.lastName}`}</p>
-                            )
-                        })}</div></td>
+                            <div>
+                                <input 
+                                    key={u.id} 
+                                    type="checkbox"
+                                />{" "}
+                                {u.firstName}
+                            </div>)})}
+                        </td>
                     </tr>
                     <tr>
                         <th>Last Completed</th>
@@ -67,7 +81,7 @@ export const ChoreDetails = () => {
                             </p>
                         </td>
                     </tr>
-                </thead>
+                </tbody>
             </Table>
         </div>
     </div>

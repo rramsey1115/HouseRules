@@ -5,12 +5,16 @@ import Register from "./auth/Register";
 import { Home } from "./Home";
 import { UserProfileList } from "./userProfiles/UserProfileList";
 import { UserProfileDetails } from "./userProfiles/UserProfileDetails";
+import { ChoresList } from "./chores/ChoresList";
+import { ChoreDetails } from "./chores/ChoreDetails";
+import { CreateChore } from "./chores/CreateChore";
 
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
     <Routes>
       <Route path="/">
+
         <Route
           index
           element={
@@ -19,6 +23,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             </AuthorizedRoute>
           }
         />
+
         <Route path="userprofiles">
           <Route 
           index
@@ -33,6 +38,27 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             </AuthorizedRoute>}
           />
         </Route>
+
+        <Route path="chores">
+          <Route 
+          index
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <ChoresList />
+            </AuthorizedRoute> }
+          />
+          <Route path=":id" element={
+            <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
+              <ChoreDetails />
+            </AuthorizedRoute>}
+          />
+          <Route path="create" element={
+            <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
+              <CreateChore />
+            </AuthorizedRoute>
+          } />
+        </Route>
+
 
         <Route
           path="login"

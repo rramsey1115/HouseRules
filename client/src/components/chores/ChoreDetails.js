@@ -37,11 +37,11 @@ export const ChoreDetails = () => {
     };
 
     const unAssign = (userId) => {
-        assignChore(choreId, userId).then(() => getAndSetAllUsers())
+        assignChore(choreId, userId).then(() => getAndSetChoreById(choreId)).then(() => getAndSetAllUsers())
     }
 
     const assign = (userId) => {
-        unAssignChore(choreId, userId).then(() => getAndSetAllUsers())
+        unAssignChore(choreId, userId).then(() => getAndSetChoreById(choreId)).then(() => getAndSetAllUsers())
     }
 
     return !chore || allUsers.length < 1 

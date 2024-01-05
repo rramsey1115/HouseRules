@@ -18,11 +18,12 @@ export const ChoresList = ({ loggedInUser }) => {
 
     return (
     <div className="container">
-        <div className="header" style={{display:"flex", justifyContent:'space-between'}}>
+        <div className="header" style={{display:"flex", justifyContent:'space-between', alignItems:"center"}}>
             <h1>Chores List</h1>
             <Button
-                size="lg"
+                size="md"
                 color="primary"
+                style={{height:40}}
                 onClick={() => navigate('create')}
                 >Add Chore +
             </Button>

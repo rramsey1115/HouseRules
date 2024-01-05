@@ -84,7 +84,7 @@ public class ChoreController : ControllerBase
                 },
                 ChoreId = ca.ChoreId
             }).ToList(),
-            ChoreCompletions = found.ChoreCompletions.OrderBy(cp => cp.CompletedOn).Take(1).Select(cp => new ChoreCompletionDTO
+            ChoreCompletions = found.ChoreCompletions.OrderByDescending(cp => cp.CompletedOn).Select(cp => new ChoreCompletionDTO
             {
                 Id = cp.Id,
                 UserProfileId = cp.UserProfileId,

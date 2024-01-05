@@ -30,6 +30,8 @@ export const ChoreDetails = () => {
         return formatted;
     };
 
+    console.log('chore', chore);
+
     return !chore ? <Spinner /> :
     <div className="container">
         <div className="header" style={{borderBottom:"1px solid"}}>
@@ -58,22 +60,11 @@ export const ChoreDetails = () => {
                     <tr>
                         <th>Last Completed</th>
                         <td>
-                            {chore.choreCompletions?.map(cp => {
-                                if(recent !== null)
-                                {
-                                    if(recent.completedOn < cp.completedOn)
-                                    {
-                                        recent = cp;
-                                    }
-                                }
-                                else
-                                {
-                                    recent = cp;
-                                }
-                                return (
-                                    <p key={cp.id}>{`${getFormattedDate(recent.completedOn)} by ${cp.userProfile.firstName}`}</p>
-                                )})
-                            }
+                            <p>
+                                {chore.choreCompletions.length > 0 
+                                ? `${getFormattedDate(chore.choreCompletions[0]?.completedOn)} by ${chore.choreCompletions[0]?.userProfile?.firstName}` 
+                                : ""}
+                            </p>
                         </td>
                     </tr>
                 </thead>

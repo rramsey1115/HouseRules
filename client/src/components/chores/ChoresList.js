@@ -18,7 +18,7 @@ export const ChoresList = ({ loggedInUser }) => {
 
     return (
     <div className="container">
-        <div className="header" style={{display:"flex", justifyContent:'space-between', alignItems:"center"}}>
+        <div className="header" style={{display:"flex", justifyContent:'space-between', alignItems:"center", borderBottom:"1px solid black"}}>
             <h1>Chores List</h1>
             {loggedInUser.roles.includes("Admin") && (
                 <Button

@@ -31,7 +31,7 @@ export const ChoreDetails = () => {
 
     return !chore ? <Spinner /> :
     <div className="container">
-        <div className="header">
+        <div className="header" style={{borderBottom:"1px solid"}}>
             <h1>Chore Details</h1>
         </div>
         <div className="body">

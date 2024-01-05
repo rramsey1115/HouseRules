@@ -11,3 +11,11 @@ export const deleteChoreById = (id) => {
         method: "DELETE"
     });
 }
+
+export const createChore = (choreObj) => {
+    return fetch(`/api/chore/create`, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(choreObj)
+    });
+}

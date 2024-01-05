@@ -117,13 +117,13 @@ public class ChoreController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost]
+    [HttpPost("create")]
     // [Authorize(Roles = "Admin")]
     public IActionResult Create(Chore c)
     {
         _dbContext.Chores.Add(c);
         _dbContext.SaveChanges();
-        return Created($"api/chore/{c.Id}", c);
+        return NoContent();
     }
 
     [HttpPut("{id}")]

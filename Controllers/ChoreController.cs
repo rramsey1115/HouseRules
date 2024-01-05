@@ -57,7 +57,7 @@ public class ChoreController : ControllerBase
     {
         var found = _dbContext.Chores
         .Include(c => c.ChoreCompletions).ThenInclude(cp => cp.UserProfile)
-        .Include(c => c.ChoreAssignments)
+        .Include(c => c.ChoreAssignments).ThenInclude(ca => ca.UserProfile)
         .SingleOrDefault(c => c.Id == id);
 
         if (found == null)
@@ -75,12 +75,26 @@ public class ChoreController : ControllerBase
             {
                 Id = ca.Id,
                 UserProfileId = ca.UserProfileId,
+                UserProfile = new UserProfileDTO
+                {
+                    Id = ca.UserProfile.Id,
+                    FirstName = ca.UserProfile.FirstName,
+                    LastName = ca.UserProfile.LastName,
+                    Address = ca.UserProfile.Address
+                },
                 ChoreId = ca.ChoreId
             }).ToList(),
             ChoreCompletions = found.ChoreCompletions.Select(cp => new ChoreCompletionDTO
             {
                 Id = cp.Id,
                 UserProfileId = cp.UserProfileId,
+                UserProfile = new UserProfileDTO
+                {
+                    Id = cp.UserProfile.Id,
+                    FirstName = cp.UserProfile.FirstName,
+                    LastName = cp.UserProfile.LastName,
+                    Address = cp.UserProfile.Address
+                },
                 ChoreId = cp.ChoreId,
                 CompletedOn = cp.CompletedOn
             }).ToList()
@@ -104,7 +118,7 @@ public class ChoreController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public IActionResult Create(Chore c)
     {
         _dbContext.Chores.Add(c);
@@ -113,7 +127,7 @@ public class ChoreController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public IActionResult Update(int id, Chore c)
     {
         Chore foundC = _dbContext.Chores.SingleOrDefault(c => c.Id == id);
@@ -129,7 +143,7 @@ public class ChoreController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         Chore foundC = _dbContext.Chores.SingleOrDefault(c => c.Id == id);
@@ -143,7 +157,7 @@ public class ChoreController : ControllerBase
     }
 
     [HttpPost("{id}/assign")]
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public IActionResult Assign(int id, int userId)
     {
         var assignment = new ChoreAssignment

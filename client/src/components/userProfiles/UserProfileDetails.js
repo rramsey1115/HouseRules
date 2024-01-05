@@ -28,8 +28,6 @@ export const UserProfileDetails = () => {
         const formatted = mm + "-" + dd + "-" + yyyy;
         return formatted;
       };
-
-    console.log('user', user);
     
     return !user ? <Spinner /> :
         <div className="container">

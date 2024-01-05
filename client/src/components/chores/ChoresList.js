@@ -20,13 +20,15 @@ export const ChoresList = ({ loggedInUser }) => {
     <div className="container">
         <div className="header" style={{display:"flex", justifyContent:'space-between', alignItems:"center"}}>
             <h1>Chores List</h1>
-            <Button
-                size="md"
-                color="primary"
-                style={{height:40}}
-                onClick={() => navigate('create')}
-                >Add Chore +
-            </Button>
+            {loggedInUser.roles.includes("Admin") && (
+                <Button
+                    size="md"
+                    color="primary"
+                    style={{height:40}}
+                    onClick={() => navigate('create')}
+                    >Add Chore +
+                </Button>
+            )}
         </div>
         <div className="body">
             <Table>

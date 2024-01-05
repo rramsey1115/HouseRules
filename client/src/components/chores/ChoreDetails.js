@@ -13,6 +13,7 @@ export const ChoreDetails = () => {
             getAndSetChoreById(id)
         }
     }, [id]);
+    let recent = null;
 
     const getAndSetChoreById = (id) => {
         getChoreById(id).then(setChore);
@@ -55,13 +56,12 @@ export const ChoreDetails = () => {
                         })}</div></td>
                     </tr>
                     <tr>
-                        <th>Completed On</th>
+                        <th>Last Completed</th>
                         <td>
                             {chore.choreCompletions?.map(cp => {
-                                let recent = null;
-                                if(recent)
+                                if(recent !== null)
                                 {
-                                    if(recent.completedOn > cp.completedOn)
+                                    if(recent.completedOn < cp.completedOn)
                                     {
                                         recent = cp;
                                     }
@@ -71,7 +71,7 @@ export const ChoreDetails = () => {
                                     recent = cp;
                                 }
                                 return (
-                                    <p key={cp.id}>{getFormattedDate(recent.completedOn)}</p>
+                                    <p key={cp.id}>{`${getFormattedDate(recent.completedOn)} by ${cp.userProfile.firstName}`}</p>
                                 )})
                             }
                         </td>

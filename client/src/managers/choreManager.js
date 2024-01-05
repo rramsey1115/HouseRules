@@ -19,3 +19,10 @@ export const createChore = (choreObj) => {
         body: JSON.stringify(choreObj)
     });
 }
+
+export const completeChore = (id, userId) => {
+    return fetch(`/api/chore/${id}/${userId}/complete`,{
+        method: "POST",
+        headers: {"Content-Type":"application/json"}
+    });
+}

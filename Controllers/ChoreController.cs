@@ -40,7 +40,7 @@ public class ChoreController : ControllerBase
                 UserProfileId = ca.UserProfileId,
                 ChoreId = ca.ChoreId
             }).ToList(),
-            ChoreCompletions = c.ChoreCompletions.Select(cp => new ChoreCompletionDTO
+            ChoreCompletions = c.ChoreCompletions.OrderByDescending(cp => cp.CompletedOn).Select(cp => new ChoreCompletionDTO
             {
                 Id = cp.Id,
                 UserProfileId = cp.UserProfileId,
@@ -84,7 +84,7 @@ public class ChoreController : ControllerBase
                 },
                 ChoreId = ca.ChoreId
             }).ToList(),
-            ChoreCompletions = found.ChoreCompletions.Select(cp => new ChoreCompletionDTO
+            ChoreCompletions = found.ChoreCompletions.OrderBy(cp => cp.CompletedOn).Take(1).Select(cp => new ChoreCompletionDTO
             {
                 Id = cp.Id,
                 UserProfileId = cp.UserProfileId,
@@ -101,7 +101,7 @@ public class ChoreController : ControllerBase
         });
     }
 
-    [HttpPost("{id}/complete")]
+    [HttpPost("{id}/{userId}/complete")]
     [Authorize]
     public IActionResult Complete(int id, int userId)
     {

@@ -45,7 +45,7 @@ export const UserProfileList = () => {
                             <td>{choreCount}</td>
                             <td>{completedCount}</td>
                             <td><Button 
-                                color="info" 
+                                color="primary" 
                                 value={u.id} 
                                 onClick={(e) => navigate(`${e.target.value}`)}
                                 >Details

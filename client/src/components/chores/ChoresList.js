@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
-import { deleteChoreById, getAllChores } from "../../managers/choreManager";
+import { completeChore, deleteChoreById, getAllChores } from "../../managers/choreManager";
 import { Button, Table } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
 export const ChoresList = ({ loggedInUser }) => {
     const [allChores, setAllChores] = useState([]);
+    const userId = loggedInUser.id * 1;
+    console.log('userId', userId);
 
     useEffect(() => { getAndSetAllChores() }, []);
 
@@ -38,9 +40,10 @@ export const ChoresList = ({ loggedInUser }) => {
                         <th>Name</th>
                         <th>Difficulty</th>
                         <th>Frequency Days</th>
+                        <th>Complete</th>
                         {loggedInUser.roles.includes("Admin") && (
                             <>
-                            <th>Edit</th>
+                            <th>Details</th>
                             <th>Delete</th>
                             </>
                         )}
@@ -54,20 +57,26 @@ export const ChoresList = ({ loggedInUser }) => {
                             <td>{c.name}</td>
                             <td>{c.difficulty}</td>
                             <td>{c.choreFrequencyDays}</td>
+                            <td>
+                                <Button
+                                    value={c.id * 1}
+                                    color="success"
+                                    onClick={(e) => {completeChore(e.target.value, userId).then(() => getAndSetAllChores())}}
+                                >Complete
+                                </Button>
+                            </td>
                         {loggedInUser.roles.includes("Admin") && (
                             <>
                             <td>
                                 <Button
-                                    id="edit-chore-btn"
                                     value={c.id}
                                     color="primary"
                                     onClick={(e) => navigate(`${e.target.value}`)}
-                                >Edit
+                                >Details
                                 </Button>
                             </td>
                             <td>
                                 <Button
-                                    id="delete-chore-btn"
                                     value={c.id}
                                     color="danger"
                                     onClick={(e) => handleDelete(e.target.value)}

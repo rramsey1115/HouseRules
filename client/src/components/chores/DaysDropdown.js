@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap"
 
 export const DaysDropdown = ({choreObj, setChoreObj}) => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [dropdown1Open, setDropdown1Open] = useState(false);
+    const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
-    const toggle = () => setDropdownOpen((prevState) => !prevState);
-
+    const toggle1 = () => {console.log('dropdown1', dropdown1Open); setDropdown1Open((prevState) => !prevState)}
 
     return (
-        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+        <Dropdown isOpen={dropdown1Open} toggle={toggle1}>
             <DropdownToggle 
                 caret 
                 color="primary"
@@ -18,30 +18,23 @@ export const DaysDropdown = ({choreObj, setChoreObj}) => {
                     justifyContent:"space-around",
                     alignItems:"center"
                 }}
-                >Chore Frequency
+                >{choreObj.choreFrequencyDays > 0 ? `${choreObj.choreFrequencyDays}` : "Choose Frequency"}
             </DropdownToggle>
-            <DropdownMenu 
-                style={{
-                    width:250, 
-                    height:200, 
-                    overflowY:"scroll"
-                }}>
-              <DropdownItem header>Chore Frequency in Days</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>1</DropdownItem>
-              <DropdownItem>2</DropdownItem>
-              <DropdownItem>3</DropdownItem>
-              <DropdownItem>4</DropdownItem>
-              <DropdownItem>5</DropdownItem>
-              <DropdownItem>6</DropdownItem>
-              <DropdownItem>7</DropdownItem>
-              <DropdownItem>8</DropdownItem>
-              <DropdownItem>9</DropdownItem>
-              <DropdownItem>10</DropdownItem>
-              <DropdownItem>11</DropdownItem>
-              <DropdownItem>12</DropdownItem>
-              <DropdownItem>13</DropdownItem>
-              <DropdownItem>14</DropdownItem>
+            <DropdownMenu style={{ width:250, height:"fit-content"}}>
+                    <DropdownItem>{`Chore Frequency in Days`}</DropdownItem>
+                    <DropdownItem divider></DropdownItem>
+                    {values.map(v => { return (
+                        <DropdownItem
+                            key={v}
+                            value={v}
+                            onSelect={(e) => {
+                                const copy = {...choreObj}
+                                copy.choreFrequencyDays = e.target.value * 1
+                                setChoreObj(copy)
+                                toggle1()
+                            }}
+                        >{v}
+                    </DropdownItem>)})}
             </DropdownMenu>
         </Dropdown>
     );

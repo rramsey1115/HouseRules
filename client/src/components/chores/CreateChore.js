@@ -1,13 +1,13 @@
 import { useState } from "react"
-import { Form, FormGroup, Input, Label } from "reactstrap"
+import { Button, Form, FormGroup, Input, Label } from "reactstrap"
 import { DaysDropdown } from "./DaysDropdown";
 import { DifficultyDropdown } from "./DifficultyDropdown";
 
 export const CreateChore = () => {
     const [choreObj, setChoreObj] = useState({
-        name:"",
-        difficulty:0,
-        choreFrequencyDays:0
+        name: "",
+        difficulty: 0,
+        choreFrequencyDays: 0
     });
 
     return (
@@ -18,6 +18,7 @@ export const CreateChore = () => {
         <div className="body">
             <Form style={{marginTop:20}}>
                 <FormGroup>
+                    <Label><h5>Chore Name</h5>
                         <Input 
                             type="text" 
                             name="name" 
@@ -30,15 +31,32 @@ export const CreateChore = () => {
                                 setChoreObj(copy)
                                 }
                             }
-                            style={{width:500}}/>
+                            style={{width:500}}
+                        />
+                    </Label>
                 </FormGroup>
                 <FormGroup style={{width:500, display:"flex", justifyContent:"space-between"}}>
-                    <DaysDropdown choreObj={choreObj} setChoreObj={setChoreObj}/>
-                    <DifficultyDropdown choreObj={choreObj} setChoreObj={setChoreObj}/>
-                </FormGroup>
-                <FormGroup>
+                    <Label><><h5>Chore Frequency</h5></>
+                        <DaysDropdown choreObj={choreObj} setChoreObj={setChoreObj}/>
+                    </Label>
+                    <Label><h5>Chore Difficulty</h5>
+                        {/* <DifficultyDropdown choreObj={choreObj} setChoreObj={setChoreObj}/> */}
+                    </Label>
                 </FormGroup>
             </Form>
+            <div className="button-container">
+                <Button
+                    disabled={
+                        choreObj.name.length >= 3 &&
+                        choreObj.choreFrequencyDays > 0 &&
+                        choreObj.difficulty > 0 ? false : true
+                    }
+                    color="success"
+                    style={{width:200}}
+                    >
+                    Submit
+                </Button>
+            </div>
         </div>
     </div>)
 }

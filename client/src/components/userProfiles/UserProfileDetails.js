@@ -74,14 +74,6 @@ export const UserProfileDetails = () => {
                                 })}
                             </td>
                         </tr>
-                        <tr>
-                            <th></th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td></td>
-                        </tr>
                     </tbody>
                 </Table>
             </div>

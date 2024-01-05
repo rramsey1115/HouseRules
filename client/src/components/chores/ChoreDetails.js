@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getChoreById } from "../../managers/choreManager";
+import { assignChore, getChoreById, unAssignChore } from "../../managers/choreManager";
 import { Spinner, Table } from "reactstrap";
 import { getUserProfiles } from "../../managers/profileManager";
 
 export const ChoreDetails = () => {
-    const id = useParams().id;
+    const choreId = useParams().id;
     const [chore, setChore] = useState();
     const [allUsers, setAllUsers] = useState([]);
 
     useEffect(() => {
-        if(parseInt(id))
+        if(parseInt(choreId))
         {
-            getAndSetChoreById(id);
+            getAndSetChoreById(choreId);
             getAndSetAllUsers();
         }
-    }, [id]);
+    }, [choreId]);
 
-    const getAndSetChoreById = (id) => {
-        getChoreById(id).then(setChore);
+    const getAndSetChoreById = (choreId) => {
+        getChoreById(choreId).then(setChore);
     }
 
     const getAndSetAllUsers = () => {
@@ -36,8 +36,12 @@ export const ChoreDetails = () => {
         return formatted;
     };
 
-    const handleChange = (id) => {
+    const unAssign = (userId) => {
+        assignChore(choreId, userId).then(() => getAndSetAllUsers())
+    }
 
+    const assign = (userId) => {
+        unAssignChore(choreId, userId).then(() => getAndSetAllUsers())
     }
 
     return !chore || allUsers.length < 1 
@@ -61,14 +65,19 @@ export const ChoreDetails = () => {
                         <th>Assignments</th>
                         <td>
                             {allUsers.map(u => {
-                            return (
-                            <div>
-                                <input 
-                                    key={u.id} 
-                                    type="checkbox"
-                                />{" "}
-                                {u.firstName}
-                            </div>)})}
+                                const arr = u.choreAssignments.filter(a => a.choreId === chore.id)
+                                return (
+                                    <div key={u.id}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={arr.length > 0 ? true : false}
+                                            value={u.id}
+                                            onChange={(e) => e.target.checked === true ? unAssign(e.target.value * 1) : assign(e.target.value * 1)}
+                                        />{" "}
+                                        {u.firstName}
+                                    </div>
+                                )
+                            })}
                         </td>
                     </tr>
                     <tr>

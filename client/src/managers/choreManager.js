@@ -26,3 +26,17 @@ export const completeChore = (id, userId) => {
         headers: {"Content-Type":"application/json"}
     });
 }
+
+export const assignChore = (id, userId) => {
+    return fetch(`/api/chore/${id}/assign/${userId}`, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"}
+    });
+}
+
+export const unAssignChore = (id, userId) => {
+    return fetch(`/api/chore/${id}/unassign/${userId}`, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"}
+    });
+}

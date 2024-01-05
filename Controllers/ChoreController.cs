@@ -156,7 +156,7 @@ public class ChoreController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id}/assign")]
+    [HttpPost("{id}/assign/{userId}")]
     // [Authorize(Roles = "Admin")]
     public IActionResult Assign(int id, int userId)
     {
@@ -171,7 +171,7 @@ public class ChoreController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{id}/unassign")]
+    [HttpPost("{id}/unassign/{userId}")]
     // [Authorize(Roles = "Admin")]
     public IActionResult Unassign(int id, int userId)
     {

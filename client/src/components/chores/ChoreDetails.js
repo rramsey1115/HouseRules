@@ -27,9 +27,8 @@ export const ChoreDetails = () => {
         if (mm < 10) mm = "0" + mm;
         const formatted = mm + "-" + dd + "-" + yyyy;
         return formatted;
-      };
+    };
 
-    console.log('chore', chore);
     return !chore ? <Spinner /> :
     <div className="container">
         <div className="header">

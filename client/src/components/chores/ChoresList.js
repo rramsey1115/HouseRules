@@ -8,16 +8,24 @@ export const ChoresList = ({ loggedInUser }) => {
 
     useEffect(() => { getAndSetAllChores() }, []);
 
-    const getAndSetAllChores = () => { getAllChores().then(setAllChores) }
+    const getAndSetAllChores = () => { getAllChores().then(setAllChores) };
+
     const navigate = useNavigate();
+
     const handleDelete = (id) => {
         deleteChoreById(id).then(() => getAndSetAllChores());
-    }
+    };
 
     return (
     <div className="container">
-        <div className="header">
+        <div className="header" style={{display:"flex", justifyContent:'space-between'}}>
             <h1>Chores List</h1>
+            <Button
+                size="lg"
+                color="primary"
+                onClick={() => navigate('create')}
+                >Add Chore +
+            </Button>
         </div>
         <div className="body">
             <Table>

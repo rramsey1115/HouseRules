@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 export const ChoresList = ({ loggedInUser }) => {
     const [allChores, setAllChores] = useState([]);
     const userId = loggedInUser.id * 1;
-    console.log('userId', userId);
 
     useEffect(() => { getAndSetAllChores() }, []);
 

@@ -40,3 +40,11 @@ export const unAssignChore = (id, userId) => {
         headers: {"Content-Type":"application/json"}
     });
 }
+
+export const editChore = (choreId, obj) => {
+    return fetch(`/api/chore/${choreId}`, {
+        method: "PUT",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(obj)
+    }).then((res) => res.json());
+}

@@ -29,7 +29,7 @@ export const UserProfileDetails = () => {
         return formatted;
       };
     
-    return !user ? <Spinner /> :
+    return !user.firstName ? <Spinner /> :
         <div className="container">
             <div className="header" style={{borderBottom:"1px solid"}}>
                 <h1>User Profile Details</h1>

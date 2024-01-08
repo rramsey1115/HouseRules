@@ -14,7 +14,7 @@ export const Home = () => {
             <div style={{marginBottom:30}}>
                 <h4>Key Learning Objectives:</h4>
                 <ul>
-                    <li>Authentication sing Identity Framework and EF Core</li>
+                    <li>Authentication using Identity Framework and EF Core</li>
                     <li>Role-based authorization</li>
                     <li>Creating endpoints with controller methods</li>
                     <li>Dependency injection with constructors and fields</li>

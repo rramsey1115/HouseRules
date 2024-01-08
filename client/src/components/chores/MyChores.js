@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { completeChore, getAllChores, getMyAssignments } from "../../managers/choreManager";
+import { completeChore, getMyAssignments } from "../../managers/choreManager";
 import { Button, Table } from "reactstrap";
 
 export const MyChores = ({ loggedInUser }) => {

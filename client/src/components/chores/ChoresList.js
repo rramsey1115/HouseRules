@@ -53,7 +53,9 @@ export const ChoresList = ({ loggedInUser }) => {
                         return (
                         <tr key={c.id}>
                             <td>{c.id}</td>
-                            <td>{c.name}</td>
+                            {c.overdue == true 
+                                ? <td style={{color:"red"}}>{c.name}</td> 
+                                : <td>{c.name}</td> }
                             <td>{c.difficulty}</td>
                             <td>{c.choreFrequencyDays}</td>
                             <td>

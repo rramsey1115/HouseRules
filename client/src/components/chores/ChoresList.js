@@ -35,7 +35,6 @@ export const ChoresList = ({ loggedInUser }) => {
             <Table>
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Name</th>
                         <th>Difficulty</th>
                         <th>Frequency Days</th>
@@ -52,7 +51,6 @@ export const ChoresList = ({ loggedInUser }) => {
                     {allChores.map(c => {
                         return (
                         <tr key={c.id}>
-                            <td>{c.id}</td>
                             {c.overdue == true 
                                 ? <td style={{color:"red"}}>{c.name}</td> 
                                 : <td>{c.name}</td> }

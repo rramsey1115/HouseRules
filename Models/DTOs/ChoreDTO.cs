@@ -7,8 +7,8 @@ public class ChoreDTO
     public string Name { get; set; }
     public int Difficulty { get; set; }
     public int ChoreFrequencyDays { get; set; }
-    public List<ChoreAssignmentDTO> ChoreAssignments { get; set; }
-    public List<ChoreCompletionDTO> ChoreCompletions { get; set; }
+    public List<ChoreAssignmentDTO>? ChoreAssignments { get; set; }
+    public List<ChoreCompletionDTO>? ChoreCompletions { get; set; }
     public bool Overdue
     {
         get
@@ -16,7 +16,7 @@ public class ChoreDTO
             DateTime today = DateTime.Today;
             var overdue = false;
 
-            if (ChoreCompletions.Count() == 0)
+            if (ChoreCompletions == null || ChoreCompletions.Count == 0)
             {
                 overdue = true;
                 return overdue;

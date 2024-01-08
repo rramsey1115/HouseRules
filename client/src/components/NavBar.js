@@ -39,7 +39,12 @@ return (
                     )}
                     <NavItem onClick={() => setOpen(false)}>
                         <NavLink tag={RRNavLink} to="/chores">
-                        Chores
+                        All Chores
+                        </NavLink>
+                    </NavItem>
+                    <NavItem onClick={() => setOpen(false)}>
+                        <NavLink tag={RRNavLink} to="/chores/my">
+                        My Chores
                         </NavLink>
                     </NavItem>
                 </Nav>

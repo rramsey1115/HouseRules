@@ -118,7 +118,7 @@ public class ChoreController : ControllerBase
     }
 
     [HttpPost("create")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create(Chore c)
     {
         _dbContext.Chores.Add(c);
@@ -127,7 +127,7 @@ public class ChoreController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Update(int id, Chore c)
     {
         Chore foundC = _dbContext.Chores.SingleOrDefault(c => c.Id == id);
@@ -143,7 +143,7 @@ public class ChoreController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         Chore foundC = _dbContext.Chores.SingleOrDefault(c => c.Id == id);
@@ -157,7 +157,7 @@ public class ChoreController : ControllerBase
     }
 
     [HttpPost("{id}/assign/{userId}")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Assign(int id, int userId)
     {
         var assignment = new ChoreAssignment
@@ -172,7 +172,7 @@ public class ChoreController : ControllerBase
     }
 
     [HttpPost("{id}/unassign/{userId}")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Unassign(int id, int userId)
     {
         var found = _dbContext.ChoreAssignments
@@ -187,4 +187,40 @@ public class ChoreController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet("my/{userId}")]
+    [Authorize]
+    public IActionResult GetMy(int userId)
+    {
+        var foundAssignments = _dbContext.ChoreAssignments
+        .Include(c => c.Chore).ThenInclude(chore => chore.ChoreCompletions)
+        .Where(c => c.UserProfileId == userId);
+
+        if(foundAssignments == null)
+        {
+            return NoContent();
+        }
+
+        return Ok(foundAssignments.Select(a => new ChoreAssignmentDTO
+        {
+            Id = a.Id,
+            UserProfileId = a.UserProfileId,
+            ChoreId = a.ChoreId,
+            Chore = new ChoreDTO
+            {
+                Id = a.Chore.Id,
+                Name = a.Chore.Name,
+                Difficulty = a.Chore.Difficulty,
+                ChoreFrequencyDays = a.Chore.ChoreFrequencyDays,
+                ChoreCompletions = a.Chore.ChoreCompletions.Select(cp => new ChoreCompletionDTO
+                {
+                    Id = cp.Id,
+                    UserProfileId = cp.UserProfileId,
+                    ChoreId = cp.ChoreId,
+                    CompletedOn = cp.CompletedOn
+                }).ToList()
+            }
+        }).ToList()
+        );
+        
+    }
 }

@@ -6,6 +6,10 @@ export const getChoreById = (id) => {
     return fetch(`/api/chore/${id}`).then(res => res.json());
 }
 
+export const getMyAssignments = (userId) => {
+    return fetch(`/api/chore/my/${userId}`).then(res => res.json());
+}
+
 export const deleteChoreById = (id) => {
     return fetch(`/api/chore/${id}`, {
         method: "DELETE"

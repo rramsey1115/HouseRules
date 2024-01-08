@@ -17,7 +17,7 @@ export const createChore = (choreObj) => {
         method: "POST",
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify(choreObj)
-    });
+    }).then((res) => res.json());
 }
 
 export const completeChore = (id, userId) => {

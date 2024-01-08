@@ -123,7 +123,7 @@ public class ChoreController : ControllerBase
     {
         _dbContext.Chores.Add(c);
         _dbContext.SaveChanges();
-        return NoContent();
+        return Created($"{c.Id}", c);
     }
 
     [HttpPut("{id}")]

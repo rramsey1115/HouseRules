@@ -14,6 +14,7 @@ export default function Register({ setLoggedInUser }) {
 
   const [passwordMismatch, setPasswordMismatch] = useState();
   const [registrationFailure, setRegistrationFailure] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
 
@@ -31,6 +32,7 @@ export default function Register({ setLoggedInUser }) {
         address,
         password,
       };
+
       register(newUser).then((user) => {
         if (user) {
           setLoggedInUser(user);
@@ -39,6 +41,7 @@ export default function Register({ setLoggedInUser }) {
           setRegistrationFailure(true);
         }
       });
+
     }
   };
 
@@ -121,7 +124,12 @@ export default function Register({ setLoggedInUser }) {
         <FormFeedback>Passwords do not match!</FormFeedback>
       </FormGroup>
       <p style={{ color: "red" }} hidden={!registrationFailure}>
-        Registration Failure
+        Registration Failure: 
+          {Object.keys(errors).map((key) => (
+          <p key={key}>
+            {key}: {errors[key].join(",")}
+          </p>
+          ))}
       </p>
       <Button
         color="primary"

@@ -9,15 +9,26 @@ export const CreateChore = () => {
         difficulty: 0,
         choreFrequencyDays: 0
     });
+    const [errors, setErrors] = useState([]);
 
     const dayValues = [1,2,3,4,5,6,7,8,9,10,11,12,13,14];
-    const diffValues = [1,2,3,4,5]
-
+    const diffValues = [1,2,3,4,5];
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
-        createChore(choreObj).then(() => navigate('/chores') )
-    }
+    const handleSubmit = (e) => { 
+        e.preventDefault();
+        
+        createChore(choreObj).then((res) => {
+        if (res.errors) 
+        {
+            setErrors(res.errors);
+        }
+        else
+        {
+            navigate('/chores')
+        }
+        });
+    };
 
     return (
     <div className="container">
@@ -42,6 +53,13 @@ export const CreateChore = () => {
                             }
                             style={{width:500}}
                         />
+                        <div style={{ color: "red" }}>
+                            {Object.keys(errors).map((key) => (
+                                <p key={key}>
+                                {key}: {errors[key].join(",")}
+                                </p>
+                            ))} 
+                        </div>
                     </Label>
                 </FormGroup>
                 <FormGroup>
@@ -101,8 +119,8 @@ export const CreateChore = () => {
                     }
                     color="success"
                     style={{width:200}}
-                    onClick={() => {
-                        handleSubmit()
+                    onClick={(e) => {
+                        handleSubmit(e)
                     }}
                     >
                     Submit

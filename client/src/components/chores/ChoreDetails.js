@@ -73,6 +73,7 @@ export const ChoreDetails = () => {
     return !chore || allUsers.length < 1 
     ? <Spinner /> 
     : <div className="container">
+        {console.log(chore)}
         <div className="header" style={{borderBottom:"1px solid", marginBottom:20}}>
             <h1>Chore Details</h1>
         </div>

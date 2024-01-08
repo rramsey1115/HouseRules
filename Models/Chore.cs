@@ -16,4 +16,29 @@ public class Chore
     public int ChoreFrequencyDays { get; set; }
     public List<ChoreAssignment> ChoreAssignments { get; set; }
     public List<ChoreCompletion> ChoreCompletions { get; set; }
+        public bool Overdue
+    {
+        get
+        {
+            DateTime today = DateTime.Today;
+            var overdue = false;
+
+            if (ChoreCompletions.Count() == 0)
+            {
+                overdue = true;
+                return overdue;
+            }
+
+            else
+            {
+                var dueDate = ChoreCompletions[0].CompletedOn.AddDays(ChoreFrequencyDays);
+                if(dueDate < today)
+                {
+                    overdue = true;
+                    return overdue;
+                }
+                return overdue;
+            }
+        }
+    }
 }

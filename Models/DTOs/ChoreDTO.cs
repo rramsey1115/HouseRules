@@ -21,7 +21,6 @@ public class ChoreDTO
                 overdue = true;
                 return overdue;
             }
-
             else
             {
                 var dueDate = ChoreCompletions[0].CompletedOn.AddDays(ChoreFrequencyDays);

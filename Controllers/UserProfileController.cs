@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using HouseRules.Data;
 using HouseRules.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
-using HouseRules.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace HouseRules.Controllers;
 
